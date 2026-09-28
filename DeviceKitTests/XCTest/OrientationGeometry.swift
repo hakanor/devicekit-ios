@@ -72,6 +72,8 @@ struct OrientationGeometry {
         point: CGPoint
     ) -> CGPoint {
         let orientation = actualOrientation()
+        let portraitWidth = CGFloat(min(width, height))
+        let portraitHeight = CGFloat(max(width, height))
 
         switch orientation {
         case .portrait:
@@ -79,14 +81,14 @@ struct OrientationGeometry {
 
         case .landscapeLeft:
             return CGPoint(
-                x: CGFloat(width) - point.y,
+                x: portraitWidth - point.y,
                 y: point.x
             )
 
         case .landscapeRight:
             return CGPoint(
                 x: point.y,
-                y: CGFloat(height) - point.x
+                y: portraitHeight - point.x
             )
 
         case .portraitUpsideDown,
