@@ -35,10 +35,22 @@ struct IOSwipeMethodHandler: RPCMethodHandler {
             )
         }
 
+        let (width, height) = OrientationGeometry.physicalScreenSize()
+        let start = OrientationGeometry.orientationAwarePoint(
+            width: width,
+            height: height,
+            point: CGPoint(x: request.x1, y: request.y1)
+        )
+        let end = OrientationGeometry.orientationAwarePoint(
+            width: width,
+            height: height,
+            point: CGPoint(x: request.x2, y: request.y2)
+        )
+
         do {
             try await swipePrivateAPI(
-                start: CGPoint(x: request.x1, y: request.y1),
-                end: CGPoint(x: request.x2, y: request.y2),
+                start: start,
+                end: end,
                 duration: duration
             )
 
